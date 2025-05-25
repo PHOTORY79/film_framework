@@ -2370,12 +2370,12 @@
                                 <div class="ost-prompt-item">
                                     <div class="prompt-title">스타일 프롬프트</div>
                                     <div class="prompt-text">${stylePrompt}</div>
-                                    <button class="copy-btn btn-small" onclick="copyMusicOstPrompt('${stylePromptForCopy}', '${title} 스타일')">복사</button>
+                                    <button class="copy-btn btn-small" onclick="copyMusicOstPrompt(decodeURIComponent('${encodeURIComponent(stylePromptForCopy)}'), '${title} 스타일')">복사</button>
                                 </div>
                                 <div class="ost-prompt-item">
                                     <div class="prompt-title">가사 & 구조 프롬프트</div>
                                     <div class="prompt-text">${lyricsPrompt}</div>
-                                    <button class="copy-btn btn-small" onclick="copyMusicOstPrompt('${lyricsPromptForCopy}', '${title} 가사 & 구조')">복사</button>
+                                   <button class="copy-btn btn-small" onclick="copyMusicOstPrompt(decodeURIComponent('${encodeURIComponent(lyricsPromptForCopy)}'), '${title} 가사 & 구조')">복사</button>
                                 </div>
                             </div>
                         </div>`;
