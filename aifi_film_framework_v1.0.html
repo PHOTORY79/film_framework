@@ -2341,8 +2341,8 @@
                     const stylePrompt = ostPromptData.style_prompt || '스타일 프롬프트가 없습니다.';
                     const lyricsPrompt = ostPromptData.lyrics_structure_prompt || '가사&구조 프롬프트가 없습니다.';
                     console.log(`[${title} - 가사&구조] 원본 lyricsPrompt:`, lyricsPrompt);
-                    const stylePromptForCopy = stylePrompt.replace(/'/g, "&#39;").replace(/\n/g, "\\n");
-                    const lyricsPromptForCopy = lyricsPrompt.replace(/'/g, "&#39;").replace(/\n/g, "\\n");
+                    const stylePromptForCopy = escapeForJSStringInHTML(stylePrompt);
+                    const lyricsPromptForCopy = escapeForJSStringInHTML(lyricsPrompt);
                     console.log(`[${title} - 가사&구조] HTML 전달용 lyricsPromptForCopy:`, lyricsPromptForCopy);
 
                     return `
@@ -2408,6 +2408,13 @@
             }
             copyToClipboard(actualPrompt).then(ok => ok && showMessage(`${ostNameAndType} 프롬프트 복사됨.`, 'success'));
         } 
+                    function escapeForJSStringInHTML(str) {
+                if (typeof str !== 'string') return '';
+                return str.replace(/\\/g, '\\\\')  // 1. 백슬래시를 먼저 이스케이프
+                          .replace(/'/g, '\\\'')   // 2. 작은따옴표를 이스케이프 ( \' )
+                          .replace(/\n/g, '\\n')   // 3. 줄바꿈을 \n 문자열로 이스케이프
+                          .replace(/\r/g, '\\r');   // 4. 캐리지 리턴을 \r 문자열로 이스케이프
+            }
         
         // 프로젝트 레벨 음악 URL 업데이트 함수
         function updateProjectMusicUrl(ostType, newUrl) {
