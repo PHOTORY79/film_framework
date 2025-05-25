@@ -1967,7 +1967,11 @@
 
         // AI 이미지 프롬프트 (프롬프트+파라미터) 복사 함수
         function copyImageAIPrompt(fullPrompt, aiName) {
+            // ▼▼▼ 첫 번째 로그 추가! ▼▼▼
+            console.log(`[${aiName} - copyImageAIPrompt] 함수 호출됨. 받은 fullPrompt:`, fullPrompt);
             const actualFullPrompt = fullPrompt.replace(/\\n/g, "\n"); // HTML 전달용 \\n을 실제 줄바꿈으로 변경
+             // ▼▼▼ 두 번째 로그 추가! ▼▼▼
+            console.log(`[${aiName} - copyImageAIPrompt] 실제 복사될 actualFullPrompt:`, actualFullPrompt);
             if (!actualFullPrompt || actualFullPrompt.trim() === '프롬프트가 없습니다.') return showMessage(`${aiName} 프롬프트가 비어 복사 불가.`, 'warning');
             copyToClipboard(actualFullPrompt).then(ok => ok && showMessage(`${aiName} 전체 프롬프트 복사됨.`, 'success'));
         }
