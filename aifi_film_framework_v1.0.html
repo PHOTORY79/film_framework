@@ -2340,8 +2340,10 @@
 
                     const stylePrompt = ostPromptData.style_prompt || '스타일 프롬프트가 없습니다.';
                     const lyricsPrompt = ostPromptData.lyrics_structure_prompt || '가사&구조 프롬프트가 없습니다.';
+                    console.log(`[${title} - 가사&구조] 원본 lyricsPrompt:`, lyricsPrompt);
                     const stylePromptForCopy = stylePrompt.replace(/'/g, "&#39;").replace(/\n/g, "\\n");
                     const lyricsPromptForCopy = lyricsPrompt.replace(/'/g, "&#39;").replace(/\n/g, "\\n");
+                    console.log(`[${title} - 가사&구조] HTML 전달용 lyricsPromptForCopy:`, lyricsPromptForCopy);
 
                     return `
                         <div class="music-ost-section">
@@ -2395,7 +2397,9 @@
         }
         // 음악 OST 프롬프트 복사 처리 함수 (새로 추가할 함수)
         function copyMusicOstPrompt(promptForCopy, ostNameAndType) {
+            console.log(`[${ostNameAndType}] copyMusicOstPrompt 호출됨. 받은 promptForCopy:`, promptForCopy); // <--- 첫 번째 추가할 줄!
             const actualPrompt = promptForCopy.replace(/\\n/g, "\n"); // HTML 전달용 \\n을 실제 줄바꿈으로 변경
+            console.log(`[${ostNameAndType}] 실제 복사될 actualPrompt:`, actualPrompt); // <--- 두 번째 추가할 줄!
         
             // 프롬프트가 비었는지 또는 기본 안내 문구인지 확인
             const placeholders = ['스타일 프롬프트가 없습니다.', '가사&구조 프롬프트가 없습니다.'];
