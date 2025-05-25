@@ -1902,10 +1902,17 @@
                     const mainPrompt = currentAiPrompts.main_prompt || '프롬프트가 없습니다.';
                     const parameters = currentAiPrompts.parameters || '';
 
+                     // ▼▼▼ 이 부분을 이렇게 수정해주세요! ▼▼▼
+                    if (aiId === 'midjourney') {
+                        console.log(`[${shot.id} - Midjourney] 원본 mainPrompt:`, mainPrompt);
+                        console.log(`[${shot.id} - Midjourney] 원본 parameters:`, parameters);
+                    }
+                    // ▲▲▲ 여기까지 입니다 ▲▲▲
+                    
                     // 프롬프트 복사를 위해 HTML 엔티티 처리 및 줄바꿈 문자 처리
                    const fullPromptForCopy = escapeForJSStringInHTML(`${mainPrompt}${parameters ? ` ${parameters}` : ''}`);
                    if (aiId === 'midjourney') { console.log(`[${shot.id} - Midjourney] HTML 전달용 fullPromptForCopy:`, fullPromptForCopy); }
-
+        
                     let imageSlotsHtml = '';
                     for (let i = 0; i < 3; i++) {
                         // aiGeneratedImages[aiId]가 존재하고, 그 안의 i번째 요소도 존재하는지 확인
