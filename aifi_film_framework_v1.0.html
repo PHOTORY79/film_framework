@@ -2393,7 +2393,18 @@
                 return `<div class="info-section"><h3>음악 탭 로드 오류</h3><p>오류 메시지: ${error.message}</p></div>`;
             }
         }
-
+        // 음악 OST 프롬프트 복사 처리 함수 (새로 추가할 함수)
+        function copyMusicOstPrompt(promptForCopy, ostNameAndType) {
+            const actualPrompt = promptForCopy.replace(/\\n/g, "\n"); // HTML 전달용 \\n을 실제 줄바꿈으로 변경
+        
+            // 프롬프트가 비었는지 또는 기본 안내 문구인지 확인
+            const placeholders = ['스타일 프롬프트가 없습니다.', '가사&구조 프롬프트가 없습니다.'];
+            if (!actualPrompt || placeholders.includes(actualPrompt.trim())) {
+                return showMessage(`${ostNameAndType} 프롬프트가 비어 복사 불가.`, 'warning');
+            }
+            copyToClipboard(actualPrompt).then(ok => ok && showMessage(`${ostNameAndType} 프롬프트 복사됨.`, 'success'));
+        } 
+        
         // 프로젝트 레벨 음악 URL 업데이트 함수
         function updateProjectMusicUrl(ostType, newUrl) {
             try {
