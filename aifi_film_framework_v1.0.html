@@ -1903,10 +1903,7 @@
                     const parameters = currentAiPrompts.parameters || '';
 
                     // 프롬프트 복사를 위해 HTML 엔티티 처리 및 줄바꿈 문자 처리
-                    const fullPromptForCopy = `${mainPrompt}${parameters ? ` ${parameters}` : ''}`
-                                                .replace(/'/g, "&#39;")
-                                                .replace(/"/g, "&quot;")
-                                                .replace(/\n/g, "\\n"); // JavaScript 문자열 내 줄바꿈으로 전달
+                   const fullPromptForCopy = escapeForJSStringInHTML(`${mainPrompt}${parameters ? ` ${parameters}` : ''}`);
 
                     let imageSlotsHtml = '';
                     for (let i = 0; i < 3; i++) {
@@ -2080,7 +2077,7 @@
                 const videoPrompts = shot.video_prompts || {}; const videoUrls = shot.video_urls || {}; const selectedAi = shot.video_design?.selected_ai || null;
                 const aiTools = [ { id: 'luma', name: 'Luma AI', prompt: videoPrompts.luma?.main_prompt, settings: videoPrompts.luma?.settings, url: videoUrls.luma }, { id: 'kling', name: 'Kling AI', prompt: videoPrompts.kling?.main_prompt, settings: videoPrompts.kling?.settings, url: videoUrls.kling }, { id: 'veo2', name: 'Google Veo 2', prompt: videoPrompts.veo2?.main_prompt, settings: videoPrompts.veo2?.settings, url: videoUrls.veo2 }, { id: 'runway', name: 'Runway ML', prompt: videoPrompts.runway?.main_prompt, settings: videoPrompts.runway?.settings, url: videoUrls.runway } ];
                 let cardsHtml = aiTools.map(ai => {
-                    const isSelected = selectedAi === ai.id; const promptForCopy = (ai.prompt || '').replace(/'/g, "&#39;").replace(/"/g, "&quot;").replace(/\n/g, "\\n");
+                    const isSelected = selectedAi === ai.id; const promptForCopy = escapeForJSStringInHTML(ai.prompt || '');
                     let settingsHtml = ai.settings && Object.keys(ai.settings).length > 0 ? `<div class="ai-settings-info"><strong>설정:</strong> ${JSON.stringify(ai.settings)}</div>` : `<div class="ai-settings-info">설정 정보가 없습니다.</div>`;
                     return `
                         <div class="ai-video-card ${ai.id} ${isSelected ? 'selected-ai-card' : ''}" id="ai-card-${shot.id}-${ai.id}">
